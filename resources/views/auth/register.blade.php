@@ -14,6 +14,15 @@
       <div class="log">
           <img id="logo" src="http://i.imgur.com/vOlWVBr.png" />
       </div>
+		@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
       <div class="row">
         <div class="Absolute-Center is-Responsive">
           <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">

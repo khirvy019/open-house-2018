@@ -65,7 +65,7 @@ class AuthController extends Controller
    {
       $data['token'] = 50;
        return User::create([
-           'first_name'     => $data['first_name'],
+           'first_name'     => $data['first_name'],	
            'last_name'      => $data['last_name'],
            'student_number' => $data['year']*100000+$data['number'],
            'token'          => $data['token'],
