@@ -14,6 +14,45 @@
       <div class="log">
           <img id="logo" src="http://i.imgur.com/vOlWVBr.png" />
       </div>
+	    <style>
+			.form-group .tooltiptext {
+			    visibility: hidden;
+			    width: 100%;
+			    background-color: #BA002C;
+			    color: #fff;
+			    text-align: center;
+			    border-radius: 6px;
+			    padding: 5px 0;
+			    position: absolute;
+			    z-index: 1;
+			    bottom: 10%;
+			    left: 100%;
+			    opacity: 0;
+			    transition: opacity 0.3s;
+			}
+
+			.form-group .tooltiptext::after {
+			    content: "";
+			    position: absolute;
+			    /*top: 100%;
+			    left: 50%;*/
+			    border-width: 5px;
+			    border-style: solid;
+			    border-color: #BA002C transparent transparent transparent;
+			}
+
+
+			.form-group:hover .tooltiptext {
+			    visibility: visible;
+			    opacity: 1;
+			}
+
+			.glowing-border { 
+			    outline: none;
+			    border-color: #BA002C;
+			    box-shadow: 0 0 10px #BA002C;
+			}
+		</style>
  
       <div class="row">
         <div class="Absolute-Center is-Responsive">
@@ -22,13 +61,19 @@
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" required autofocus>
+                <input type="text" class="form-control{{ ($errors->has('first_name') ? ' glowing-border' : '') }}" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" required>
+                 @if ($errors->has('first_name'))
+	                <span class="tooltiptext">{{ $errors->first('first_name') }}</span>
+		    	  @endif
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}" required>
+                <input type="text" class="form-control{{ ($errors->has('last_name') ? ' glowing-border' : '') }}" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}" required>
+                 @if ($errors->has('last_name'))
+	                <span class="tooltiptext">{{ $errors->first('last_name') }}</span>
+		    	  @endif
               </div>
             </div>
 
@@ -37,13 +82,23 @@
 		        <table style="width:100%">
 			        <tr>
 			        	<td>
-			                <input type="number" class="form-control" name="year" placeholder="Year" value="{{ old('year') }}" min="2010" max="3000" required>
+			                <input type="number" class="form-control{{ ($errors->has('year') ? ' glowing-border' : '') }}" name="year" placeholder="Year" value="{{ old('year') }}" >
 			        	</td>
 			        	<td align="center">
 			        		<text style="text-align: center; font-weight: bold">-</text>
 			        	</td>
 			        	<td>
-			        		<input type="number" class="form-control" name="number" placeholder="Number" value="{{ old('number') }}" min="00001" max="99999" required>
+			        		<input type="number" class="form-control{{ ($errors->has('number') ? ' glowing-border' : '') }}" name="number" placeholder="Number" value="{{ old('number') }}">
+			        		 @if ($errors->has('number') || $errors->has('year'))
+			                  <span class="tooltiptext">
+			                  	@if($errors->has('year'))
+			                  		{{ $errors->first('year') }}
+			                  	@endif
+			                  	@if ($errors->has('number'))
+			                  		{{ $errors->first('number') }}
+			                  	@endif
+			                  </span>
+				    	    @endif
 			        	</td>
 			        </tr>
 		        </table>
@@ -52,20 +107,21 @@
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                <input type="password" class="form-control{{ ($errors->has('password') ? ' glowing-border' : '') }}" name="password" placeholder="Password">
+	              @if ($errors->has('password'))
+	                <span class="tooltiptext">{{ $errors->first('password') }}</span>
+		    	  @endif
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
+                <input type="password" class="form-control{{ ($errors->has('password') ? ' glowing-border' : '') }}" name="password_confirmation" placeholder="Confirm Password">
               </div>
             </div>
-            @if ($errors->has('password'))
-	            <span class="help-block" align="center">
-	                <text>{{ $errors->first('password') }}</text>
-	            </span>
-	        @endif
+
+
+          
 
             <div class="form-group">
               <div class="col-md-12">

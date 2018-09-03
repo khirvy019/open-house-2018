@@ -40,18 +40,47 @@
               <a href="#">Forgot Password</a> 
             </div>
           </div>
-        </form>  -->
+        </form>  -->	
 
-        <!-- @if (count($errors) > 0)
-        <div class="alert alert-danger">
-          <strong>Whoops!</strong> There were some problems with your input.<br><br>
-          <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-        @endif -->
+          <style>
+			.emsg .tooltiptext {
+			    visibility: hidden;
+			    width: 100%;
+			    background-color: #BA002C;
+			    color: #fff;
+			    text-align: center;
+			    border-radius: 6px;
+			    padding: 5px 0;
+			    position: absolute;
+			    z-index: 1;
+			    bottom: 10%;
+			    left: 100%;
+			    opacity: 0;
+			    transition: opacity 0.3s;
+			}
+
+			.emsg .tooltiptext::after {
+			    content: "";
+			    position: absolute;
+			    /*top: 100%;
+			    left: 50%;*/
+			    border-width: 5px;
+			    border-style: solid;
+			    border-color: #BA002C transparent transparent transparent;
+			}
+
+
+			.emsg:hover .tooltiptext {
+			    visibility: visible;
+			    opacity: 1;
+			}
+
+			.glowing-border { 
+			    outline: none;
+			    border-color: #BA002C;
+			    box-shadow: 0 0 10px #BA002C;
+			}
+		</style>
         
         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -67,12 +96,7 @@
             </div>
           </div>
 
-          @if ($errors->has('student_number'))
-            <span class="emsg1 help-block">
-                <text>{{ $errors->first('student_number') }}</text>
-            </span>
-          @endif
-          <text><span class="emsg2 hidden help-block">Invalid Student Number</span></text>
+          <text><span class="emsg hidden help-block tooltiptext">Invalid Student Number</span></text>
 
           <div class="form-group">
             <div class="col-md-12">
@@ -105,15 +129,14 @@
     $(document).ready(function() {
         $('#s_no').on('keypress keydown keyup',function(){
            if($(this).val() == "") {
-              $('.emsg2').addClass('hidden');
+              $('.emsg').addClass('hidden');
            }
            else if ($(this).val() < 201000000 || $(this).val() > 300000000) {
-              $('.emsg2').removeClass('hidden');
-              $('.emsg2').show();
-              $('.emsg1').addClass('hidden');
+              $('.emsg').removeClass('hidden');
+              $('.emsg').show();
            }
            else{
-              $('.emsg2').addClass('hidden');
+              $('.emsg').addClass('hidden');
            }
          });
     });
