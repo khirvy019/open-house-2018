@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Student Scheduler</title>
+    <title>Register</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,15 +14,7 @@
       <div class="log">
           <img id="logo" src="http://i.imgur.com/vOlWVBr.png" />
       </div>
-		@if ($errors->any())
-			<div class="alert alert-danger">
-				<ul>
-					@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-				</ul>
-			</div>
-		@endif
+ 
       <div class="row">
         <div class="Absolute-Center is-Responsive">
           <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
@@ -30,40 +22,50 @@
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}">
+                <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" required autofocus>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}">
+                <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}" required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-				<table style="width:100%">
-				<tr><td>
-                <input type="number" class="form-control" name="year" placeholder="Year" value="{{ old('year') }}" min="2010" max="3000">
-				</td>
-				<td>
-				<input type="number" class="form-control" name="number" placeholder="Number" value="{{ old('number') }}" min="00001" max="99999">
-				</td></tr>
-				</table>
+		        <table style="width:100%">
+			        <tr>
+			        	<td>
+			                <input type="number" class="form-control" name="year" placeholder="Year" value="{{ old('year') }}" min="2010" max="3000" required>
+			        	</td>
+			        	<td align="center">
+			        		<text style="text-align: center; font-weight: bold">-</text>
+			        	</td>
+			        	<td>
+			        		<input type="number" class="form-control" name="number" placeholder="Number" value="{{ old('number') }}" min="00001" max="99999" required>
+			        	</td>
+			        </tr>
+		        </table>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
               </div>
             </div>
+            @if ($errors->has('password'))
+	            <span class="help-block" align="center">
+	                <text>{{ $errors->first('password') }}</text>
+	            </span>
+	        @endif
 
             <div class="form-group">
               <div class="col-md-12">

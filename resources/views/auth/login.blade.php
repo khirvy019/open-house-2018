@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Open House 2017</title>
+    <title>Open House</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,6 +10,11 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <style>
+      span.hidden {
+        visibility: hidden;
+      }
+    </style>
     <center><div class="container-fluid">
       <img id="logo" src="http://i.imgur.com/vOlWVBr.png" />
       <div class="responsive-center">
@@ -36,7 +41,8 @@
             </div>
           </div>
         </form>  -->
-        @if (count($errors) > 0)
+
+        <!-- @if (count($errors) > 0)
         <div class="alert alert-danger">
           <strong>Whoops!</strong> There were some problems with your input.<br><br>
           <ul>
@@ -45,21 +51,28 @@
             @endforeach
           </ul>
         </div>
-        @endif
-
+        @endif -->
+        
         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group">
             <div class="col-md-12">
-              <input type="number" class="form-control" name="student_number" value="{{ old('student_number') }}" placeholder="Student Number">
+              <input id="s_no" type="number" class="form-control" name="student_number" value="{{ old('student_number') }}" placeholder="Student Number" required autofocus>
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-md-12">
-              <input type="password" class="form-control" name="password" placeholder="Password">
+              <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
           </div>
+
+          @if ($errors->has('student_number'))
+            <span class="emsg1 help-block">
+                <text>{{ $errors->first('student_number') }}</text>
+            </span>
+          @endif
+          <text><span class="emsg2 hidden help-block">Invalid Student Number</span></text>
 
           <div class="form-group">
             <div class="col-md-12">
@@ -87,4 +100,22 @@
     </div></center>
     <!-- <img id="btm" src="http://imgur.com/fMxf0dl.gif"/> -->
   </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#s_no').on('keypress keydown keyup',function(){
+           if($(this).val() == "") {
+              $('.emsg2').addClass('hidden');
+           }
+           else if ($(this).val() < 201000000 || $(this).val() > 300000000) {
+              $('.emsg2').removeClass('hidden');
+              $('.emsg2').show();
+              $('.emsg1').addClass('hidden');
+           }
+           else{
+              $('.emsg2').addClass('hidden');
+           }
+         });
+    });
+  </script>
 </html>

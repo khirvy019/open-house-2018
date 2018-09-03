@@ -21,19 +21,24 @@
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="number" class="form-control" name="student_number" placeholder="Student Number" value="{{ old('student_number') }}">
+                <input type="number" class="form-control" name="student_number" placeholder="Student Number" value="{{ old('student_number') }}" min="201000000" required autofocus>
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
               </div>
+              @if ($errors->has('password'))
+                  <span class="help-block" align="center">
+                      <text>{{ $errors->first('password') }}</text>
+                  </span>
+              @endif
             </div>
 
             <div class="form-group">
               <div class="col-md-12">
-                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
               </div>
             </div>
 
