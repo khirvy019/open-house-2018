@@ -56,7 +56,7 @@
  
       <div class="row">
         <div class="Absolute-Center is-Responsive">
-          <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+          <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }} " , onsubmit = "return roleChosen()">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
@@ -82,13 +82,13 @@
 		        <table style="width:100%">
 			        <tr>
 			        	<td>
-			                <input type="number" class="form-control{{ ($errors->has('year') ? ' glowing-border' : '') }}" name="year" placeholder="Year" value="{{ old('year') }}" >
+			                <input type="number" class="form-control{{ ($errors->has('year') ? ' glowing-border' : '') }}" name="year" placeholder="Year" value="{{ old('year') }}" min="2010" max="3000">
 			        	</td>
 			        	<td align="center">
 			        		<text style="text-align: center; font-weight: bold">-</text>
 			        	</td>
 			        	<td>
-			        		<input type="number" class="form-control{{ ($errors->has('number') ? ' glowing-border' : '') }}" name="number" placeholder="Number" value="{{ old('number') }}">
+			        		<input type="number" class="form-control{{ ($errors->has('number') ? ' glowing-border' : '') }}" name="number" placeholder="Number" value="{{ old('number') }}" min="00001" max="99999">
 			        		 @if ($errors->has('number') || $errors->has('year'))
 			                  <span class="tooltiptext">
 			                  	@if($errors->has('year'))
@@ -121,7 +121,16 @@
             </div>
 
 
-          
+			<div class="form-group">
+				<label for="role" class="col-md-4 control-label">Register as:</label>
+
+				<div class="col-md-6">
+					<select name="role" class="form-control">
+					  <option class="form-control" value="student">Student</option>
+					  <option class="form-control" value="admin">Admin</option>
+					</select>
+				</div>
+			</div>
 
             <div class="form-group">
               <div class="col-md-12">
@@ -138,4 +147,20 @@
       </div>
     </div>
   </body>
+	<script>
+		function roleChosen(){
+			var element = document.getElementsByName('role')[0];
+			if(element){
+				if(element.value == "admin"){
+					var code = prompt("Enter validation code: ");
+					if(code == '{{ ENV('APP_STAFF_KEY') }}'){
+						return true;
+					}else{
+						alert('Incorrect code!');
+						return false;
+					}
+				}
+			}
+		}
+	</script>
 </html>

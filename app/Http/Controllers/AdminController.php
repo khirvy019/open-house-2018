@@ -24,6 +24,11 @@ class AdminController extends Controller
 {
     use FormBuilderTrait;
    
+   public function __construct()
+   {
+       $this->middleware('admin', ['except' => 'getLogout']);
+	   
+   }
     /**
     *
     *   Add series to the database from the form.
@@ -189,5 +194,10 @@ class AdminController extends Controller
     }
     public function show_add_tokens(){
         return view('admin.addToken');
+    }
+	public function view_users(){
+		$users = new User;
+$users=$users->all();
+        return view('admin.view_users', ['users'=>$users]);
     }
 }

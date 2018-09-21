@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration {
 			$table->integer('image_ID');
 			$table->float('numOfHours');
 			$table->string('avatar');
+			$table->enum('role', ['student', 'admin']);
 		});
 	}
 

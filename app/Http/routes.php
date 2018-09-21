@@ -45,21 +45,22 @@ Route::post('/save_password', 'UserController@save_password');
 
 Route::get('/time'			  ,	'UserTime@index');
 // Admin routes
-Route::get('/admin'           , 'AdminController@show_dashboard');
-Route::get('/adminSeries'     , 'AdminController@show_add_series');
-Route::get('/adminGenre'      , 'AdminController@show_add_genres');
-Route::get('/adminGame'       , 'AdminController@show_add_games');
-Route::get('/adminToken'      , 'AdminController@show_add_tokens');
-Route::get('/adminSortGenre'  , 'AdminController@getGenre');
-Route::get('/adminGameGenre'  , 'AdminController@getGameGenre');
-Route::post('/adminGameGenre' , 'AdminController@sortGameGenre');
-Route::post('/adminGame'      , 'AdminController@addGame');
-Route::post('/adminsSeries'   , 'AdminController@saveSeries');
-Route::post('/adminsGenre'    , 'AdminController@saveGenre');
-Route::post('/adminSortsGenre', 'AdminController@sortGenre');
-Route::post('/addToken'       , 'AdminController@generateToken');
-Route::get('/playGame/{id}'   , 'GamesController@playGame');
-Route::get('/listToken'      , 'AdminController@tokenList');
+Route::get('/admin'           , 'AdminController@show_dashboard')->middleware('admin');
+Route::get('/adminSeries'     , 'AdminController@show_add_series')->middleware('admin');
+Route::get('/adminGenre'      , 'AdminController@show_add_genres')->middleware('admin');
+Route::get('/adminGame'       , 'AdminController@show_add_games')->middleware('admin');
+Route::get('/adminToken'      , 'AdminController@show_add_tokens')->middleware('admin');
+Route::get('/adminSortGenre'  , 'AdminController@getGenre')->middleware('admin');
+Route::get('/adminGameGenre'  , 'AdminController@getGameGenre')->middleware('admin');
+Route::post('/adminGameGenre' , 'AdminController@sortGameGenre')->middleware('admin');
+Route::post('/adminGame'      , 'AdminController@addGame')->middleware('admin');
+Route::post('/adminsSeries'   , 'AdminController@saveSeries')->middleware('admin');
+Route::post('/adminsGenre'    , 'AdminController@saveGenre')->middleware('admin');
+Route::post('/adminSortsGenre', 'AdminController@sortGenre')->middleware('admin');
+Route::post('/addToken'       , 'AdminController@generateToken')->middleware('admin');
+Route::get('/playGame/{id}'   , 'GamesController@playGame')->middleware('admin');
+Route::get('/listToken'      , 'AdminController@tokenList')->middleware('admin');
+Route::get('/viewUsers'      , 'AdminController@view_users')->middleware('admin');
 
 // video functionality
 Route::get('/series_list'     , 'VideosController@listSeries');

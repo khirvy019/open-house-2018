@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Auth;
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -50,10 +50,19 @@ class AuthController extends Controller
            'first_name'     => 'required|alpha|max:255',
            'last_name'      => 'required|alpha|max:255',
            'year' => 'required|numeric|min:2010|max:3000',
-		       'number' => 'required|numeric|min:0|max:99999',
+		   'number' => 'required|numeric|min:0|max:99999',
            'password'       => 'required|confirmed|min:7',
        ]);
    }
+   
+   protected function authenticated($request, $user)
+    {
+        if(Auth::User()->role === 'admin') {
+            return redirect()->intended('/admin');
+        }
+
+        return redirect()->intended('/dashboard');
+    }
 
    /**
     * Create a new user instance after a valid registration.
@@ -69,6 +78,7 @@ class AuthController extends Controller
            'last_name'      => $data['last_name'],
            'student_number' => $data['year']*100000+$data['number'],
            'token'          => $data['token'],
+		   'role'          =>  $data['role'],
            'password'       => bcrypt($data['password']),
        ]);
    }

@@ -148,6 +148,8 @@ return [
         /**
         * For Form builders
         */
+		HighIdeas\UsersOnline\UsersOnlineServiceProvider::class,
+		HighIdeas\UsersOnline\Providers\UsersOnlineEventServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class
     ],
 
