@@ -34,12 +34,12 @@ Route::post('/register' , 'Auth\AuthController@postRegister');
 // Routes for normal user
 Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@show_dashboard']);
 Route::get('/signin'       , 'UserController@signin');
-Route::get('/dashboard'    , 'UserController@show_dashboard');
-Route::get('/hall_of_fame' , 'UserController@show_hall_of_fame');
-Route::get('/profile'      , 'UserController@show_profile');
-Route::post('/tokens'	   , 'UserController@add_token');
-Route::get('/game'         , 'GamesController@listGames');
-Route::post('/save_profile', 'UserController@save_Profile');
+Route::get('/dashboard'    , 'UserController@show_dashboard')->middleware('approve');
+Route::get('/hall_of_fame' , 'UserController@show_hall_of_fame')->middleware('approve');
+Route::get('/profile'      , 'UserController@show_profile')->middleware('approve');
+Route::post('/tokens'	   , 'UserController@add_token')->middleware('approve');
+Route::get('/game'         , 'GamesController@listGames')->middleware('approve');
+Route::post('/save_profile', 'UserController@save_Profile')->middleware('approve');
 Route::get('/change_password', 'UserController@change_password');
 Route::post('/save_password', 'UserController@save_password');
 
@@ -61,6 +61,8 @@ Route::post('/addToken'       , 'AdminController@generateToken')->middleware('ad
 Route::get('/playGame/{id}'   , 'GamesController@playGame')->middleware('admin');
 Route::get('/listToken'      , 'AdminController@tokenList')->middleware('admin');
 Route::get('/viewUsers'      , 'AdminController@view_users')->middleware('admin');
+Route::get('/unApprovedUsers'      , 'AdminController@unapproved_users')->middleware('admin');
+Route::post('/approveUser'      , 'AdminController@approve_user')->middleware('admin');
 
 // video functionality
 Route::get('/series_list'     , 'VideosController@listSeries');

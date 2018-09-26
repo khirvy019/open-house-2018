@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
-  <body style="overflow:auto">
+  <body style="overflow: auto">
   <style>
   	table {
   		margin-top: 30px;
@@ -18,13 +18,18 @@
   		text-align: center;
   		font-size: 15px;
   	}
+  	input[type="checkbox"] {
+        width:30px;
+        height:30px;
+    }
   </style>
   <div class="container" align="center">
-  	<h3>USERS</h3>
+  <h3>PENDING USER APPROVALS</h3>
+  <form class="form-horizontal" role="form" method="POST" action="{{ url('/approveUser') }} ">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <table class="table">
-	<tr><th>First Name</th><th>Student Number</th><th>Active</th></tr>
+	<tr><th>First Name</th><th>Student Number</th><th>Approve</th></tr>
 		@foreach($users as $user)
-		@if($user->isOnline())
 			<tr>
 			<td>
 				{{ $user->first_name }}
@@ -33,26 +38,14 @@
 				{{ $user->student_number }}
 			</td>
 			<td>
-				Yes
+				<input type="checkbox" name="{{ $user->student_number }}">
 			</td>
 			</tr>
-		@endif	
-		@if(!$user->isOnline())
-			<tr>
-			<td>
-				{{ $user->first_name }}
-			</td>
-			<td>
-				{{ $user->student_number }}
-			</td>
-			<td>
-				No
-			</td>
-			</tr>
-		@endif	
 		@endforeach
+		
 	</table>
-	<a id="back" class="btn btn-success btn-block" href="{{ url('/admin') }}" style="float:left">Back to Home</a>
+	<button type="submit" id="reg" class="btn btn-primary btn-block">Approve</button>
+	</form>
 	</div>
   </body>
 

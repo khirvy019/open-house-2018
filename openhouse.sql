@@ -1,3 +1,6 @@
+drop database openhouse
+create database openhouse;
+use openhouse;
 -- phpMyAdmin SQL Dump
 -- version 4.6.6deb4
 -- https://www.phpmyadmin.net/

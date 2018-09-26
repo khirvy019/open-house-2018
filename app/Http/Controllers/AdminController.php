@@ -197,7 +197,25 @@ class AdminController extends Controller
     }
 	public function view_users(){
 		$users = new User;
-$users=$users->all();
+		$users=$users->all();
         return view('admin.view_users', ['users'=>$users]);
+    }
+	public function unapproved_users(){
+		$users = new User;
+		$users=$users->where('isApproved', '0')->where('role', '<>', 'admin')->get();
+        return view('admin.unapproved_users', ['users'=>$users]);
+    }
+	public function approve_user(){
+		$users = new User;
+		foreach($_REQUEST as $k => $v){
+			
+			if($k === '_token'){
+				continue;
+			}
+			$row[$k] = $v;
+			echo $k . '=>' . $v . '<br>';
+			$member = $users->where('student_number', $k)->update(['isApproved' => '1']);
+		}
+		return redirect()->to('/viewUsers');
     }
 }

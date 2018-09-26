@@ -36,6 +36,7 @@ class AuthController extends Controller
    public function __construct()
    {
        $this->middleware('guest', ['except' => 'getLogout']);
+	   
    }
 
    /**
@@ -72,6 +73,10 @@ class AuthController extends Controller
     */
    protected function create(array $data)
    {
+	   $isApproved = '0';
+	  if($data['role']==='admin'){
+		$isApproved = '1';
+	   }	
       $data['token'] = 50;
        return User::create([
            'first_name'     => $data['first_name'],	
@@ -79,6 +84,7 @@ class AuthController extends Controller
            'student_number' => $data['year']*100000+$data['number'],
            'token'          => $data['token'],
 		   'role'          =>  $data['role'],
+			'isApproved' => $isApproved,
            'password'       => bcrypt($data['password']),
        ]);
    }

@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration {
 			$table->float('numOfHours');
 			$table->string('avatar');
 			$table->enum('role', ['student', 'admin']);
+			$table->boolean('isApproved')->default(0);
 		});
 	}
 

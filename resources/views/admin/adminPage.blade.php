@@ -16,14 +16,18 @@
 <body>
 	<div id="welcome" class="container">
      <h1 class="page-header">Admin Page</h1>
-     <p class="quote"><a class="page-header" href={{url('/adminSeries')}}>Series</a>&nbsp&nbsp
+		@if(Auth::User()->role==='admin')
+			<a href="{{ url('/dashboard') }}">GO TO DASHBOARD</a>
+		@endif
+     	<p class="quote"><a class="page-header" href={{url('/adminSeries')}}>Series</a>&nbsp&nbsp
         <a class="page-header" href={{url('/adminGenre')}}>Genre</a>&nbsp&nbsp
         <a class="page-header" href={{url('/adminSortGenre')}}>Series Genre</a>&nbsp&nbsp
         <a class="page-header" href={{url('/adminGame')}}>Game</a>&nbsp&nbsp
         <a class="page-header" href={{url('/adminToken')}}>Token</a>&nbsp&nbsp
         <a class="page-header" href={{url('/adminGameGenre')}}>Games Genre</a>&nbsp&nbsp
         <a class="page-header" href={{url('/listToken')}}>Token List</a>&nbsp&nbsp
-		<a class="page-header" href={{url('/viewUsers')}}>View Users</a>
+		<a class="page-header" href={{url('/viewUsers')}}>View Users</a>&nbsp&nbsp
+		<a class="page-header" href={{url('/unApprovedUsers')}}>Unapproved Users</a>
      </p>
 	 </div>
 </body>

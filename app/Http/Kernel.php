@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 		'admin' => \App\Http\Middleware\AdminMiddleware::class,
+		'approve' => \App\Http\Middleware\ApproveMiddleware::class,
         'csrf' => 'App\Http\Middleware\VerifyCsrfToken'
     ];
 }
